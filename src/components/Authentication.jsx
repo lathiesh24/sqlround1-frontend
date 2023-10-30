@@ -10,7 +10,8 @@ const Authentication = () => {
 
     const navigate = useNavigate();
 
-    const handleClick = async () => {
+    const handleClick = async (e) => {
+        e.preventDefault();
         if (teamName.trim() !== "") {
             const data = {
                 teamName,
@@ -26,7 +27,7 @@ const Authentication = () => {
                 });
 
                 if (response.status === 201) { 
-                    // navigate('/sqleditor');
+                    navigate('/sqleditor');
                     console.log(response);
                 } else {
                     console.error('Error:', response.status, response.statusText);
@@ -46,7 +47,7 @@ const Authentication = () => {
     return (
         <div>
             <div className='h-screen flex justify-center items-center'>
-                <form className='border-2  w-[500px] h-[450px] p-8 flex-col'>
+                <form className='border-2  w-[500px] h-[450px] p-8 flex-col' onSubmit={handleClick}>
                     <div className='flex flex-col mt-2'>
                         <label className='font-medium text-xl'>Team Name</label>
                         <input
@@ -85,7 +86,7 @@ const Authentication = () => {
 
                     <button
                         className='p-1 border-2 min-w-full bg-violet-600 text-white mt-16'
-                        onClick={()=>handleClick}
+                        // onClick={()=>handleClick}
                     >
                         Join
                     </button>
