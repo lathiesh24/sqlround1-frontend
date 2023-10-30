@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 const QuizSection = () => {
@@ -7,9 +7,7 @@ const QuizSection = () => {
     const questions = [ 
 
         { 
-        
         question: "Which of the following SQL statements is used to create a new table?", 
-        
         answers: [ 
         
         "CREATE TABLE", 
@@ -389,22 +387,32 @@ const QuizSection = () => {
 
     const navigate = useNavigate();
     const [currentQuestionIndex , setCurrentQuestionIndex] = useState(0);
-    const [currentAnswerIndex , setCurrentAnswerIndex] = useState(0)
+    const [currentAnswerIndex , setCurrentAnswerIndex] = useState(0);
     const [selectedAnswers, setSelectedAnswers] = useState(Array(questions.length).fill(null));
     const [score, setScore] = useState(0);
 
+
+    useEffect(() => {
+        const newScore = selectedAnswers.reduce((acc, answer, index) => {
+            return answer === questions[index].correctAnswer ? acc + 1 : acc;
+        }, 0);
+        setScore(newScore);
+    }, [selectedAnswers]);
+
     const handleAnswerClick = (index) => {
-
-        if (index === questions[currentAnswerIndex].correctAnswer) {
-            setScore(score + 1);
-        }
-
         setSelectedAnswers((prevSelectedAnswers) => {
             const updatedAnswers = [...prevSelectedAnswers];
             updatedAnswers[currentQuestionIndex] = index;
             return updatedAnswers;
         });
+
+        if (currentQuestionIndex < questions.length - 1) {
+            setCurrentQuestionIndex(currentQuestionIndex + 1);
+        } else {
+            alert("You have completed the quiz.");
+        }
     };
+    
 
     const  teamName  = localStorage.getItem('teamName');
 
@@ -415,13 +423,14 @@ const QuizSection = () => {
         }
 
         try {
-            const response = await axios.post('/api/submit-score', {
+            const response = await axios.post('http://localhost:5000/api/teams/submit-score', {
                 teamName: teamName, 
                 score: score,
             });
 
             if (response.status === 200) {
                 alert("Score submitted successfully!");
+                navigate('/thankyou')
             } else {
                 alert("Failed to submit score. Please try again later.");
             }

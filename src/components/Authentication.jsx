@@ -20,14 +20,14 @@ const Authentication = () => {
             };
 
             try {
-                const response = await axios.post('/api/teams', data, {
+                const response = await axios.post('http://localhost:5000/api/teams', data, {
                     headers: {
                         'Content-Type': 'application/json',
                     },
                 });
 
                 if (response.status === 201) { 
-                    navigate('/sqleditor');
+                    navigate('/sqlquiz');
                     console.log(response);
                 } else {
                     console.error('Error:', response.status, response.statusText);
@@ -86,7 +86,6 @@ const Authentication = () => {
 
                     <button
                         className='p-1 border-2 min-w-full bg-violet-600 text-white mt-16'
-                        // onClick={()=>handleClick}
                     >
                         Join
                     </button>
