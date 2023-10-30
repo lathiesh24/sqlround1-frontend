@@ -430,7 +430,7 @@ const QuizSection = () => {
 
             if (response.status === 200) {
                 alert("Score submitted successfully!");
-                navigate('/thankyou')
+                navigate('/thankyou');
             } else {
                 alert("Failed to submit score. Please try again later.");
             }
