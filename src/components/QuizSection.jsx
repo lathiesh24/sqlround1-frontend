@@ -428,10 +428,7 @@ const QuizSection = () => {
 
         try {
             const response = await axios.get(`https://sqlr1-backend.onrender.com/api/teams/check-team?teamName=${teamName}`);
-    
-            if (response.status === 200 && response.data.exists) {
-                alert("This team name already exists in the database. You cannot submit the score again.");
-            } else {
+            
                 try {
                     const submitResponse = await axios.post('https://sqlr1-backend.onrender.com/api/teams/submit-score', {
                         teamName: teamName, 
@@ -447,7 +444,6 @@ const QuizSection = () => {
                     console.error("Error submitting score:", error);
                     alert("Failed to submit score. Please try again later.");
                 }
-            }
         } catch (error) {
             console.error("Error checking team name:", error);
             alert("Failed to check team name. Please try again later.");
