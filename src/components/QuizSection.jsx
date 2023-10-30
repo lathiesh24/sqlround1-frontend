@@ -408,9 +408,7 @@ const QuizSection = () => {
 
         if (currentQuestionIndex < questions.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
-        } else {
-            alert("You have completed the quiz.");
-        }
+        } 
     };
     
 
@@ -421,24 +419,41 @@ const QuizSection = () => {
             alert("Please provide a team name and complete the quiz.");
             return;
         }
+    
+        const confirmSubmit = window.confirm("Are you sure you want to submit your score?");
+    
+        if (!confirmSubmit) {
+            return; 
+        }
 
         try {
-            const response = await axios.post('http://localhost:5000/api/teams/submit-score', {
-                teamName: teamName, 
-                score: score,
-            });
-
-            if (response.status === 200) {
-                alert("Score submitted successfully!");
-                navigate('/thankyou');
+            const response = await axios.get(`https://sqlr1-backend.onrender.com/api/teams/check-team?teamName=${teamName}`);
+    
+            if (response.status === 200 && response.data.exists) {
+                alert("This team name already exists in the database. You cannot submit the score again.");
             } else {
-                alert("Failed to submit score. Please try again later.");
+                try {
+                    const submitResponse = await axios.post('https://sqlr1-backend.onrender.com/api/teams/submit-score', {
+                        teamName: teamName, 
+                        score: score,
+                    });
+    
+                    if (submitResponse.status === 200) {
+                        navigate('/thankyou');
+                    } else {
+                        alert("Failed to submit score. Please try again later.");
+                    }
+                } catch (error) {
+                    console.error("Error submitting score:", error);
+                    alert("Failed to submit score. Please try again later.");
+                }
             }
         } catch (error) {
-            console.error("Error submitting score:", error);
-            alert("Failed to submit score. Please try again later.");
+            console.error("Error checking team name:", error);
+            alert("Failed to check team name. Please try again later.");
         }
     };
+    
     
         
     const totalQuestions = questions.length;
