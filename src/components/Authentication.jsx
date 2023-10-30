@@ -41,7 +41,7 @@ const Authentication = () => {
     };
     
 
-    const teamNameStorage = localStorage.setItem('teamName', setTeamName);
+    const teamNameStorage = localStorage.setItem('teamName', teamName);
 
     return (
         <div>

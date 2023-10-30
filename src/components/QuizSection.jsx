@@ -406,6 +406,8 @@ const QuizSection = () => {
         });
     };
 
+    const  teamName  = localStorage.getItem('teamName');
+
     const submitScore = async () => {
         if (!teamName) {
             alert("Please provide a team name and complete the quiz.");
