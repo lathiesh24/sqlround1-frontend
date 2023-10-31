@@ -428,11 +428,7 @@ const QuizSection = () => {
                 teamName: teamName,
                 score: score,
             });
-
-            if (submitResponse.status === 200) {
-                 navigate('/thankyou'); 
-                 alert("Your quiz is successfully submitted");
-            }
+            navigate('/thankyou'); 
         } catch (error) {
             console.error("Error submitting score:", error);
             alert("Failed submitting score:", error);
