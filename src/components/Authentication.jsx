@@ -49,10 +49,10 @@ const Authentication = () => {
             <div className='h-screen flex justify-center items-center'>
                 <form className='border-2  w-[500px] h-[450px] p-8 flex-col' onSubmit={handleClick}>
                     <div className='flex flex-col mt-2'>
-                        <label className='font-medium text-xl'>Team Name</label>
+                        <label className='font-medium text-xl'>Name</label>
                         <input
                             className='mt-2 pt-2 flex justify-center items-center outline-none border-b-2'
-                            placeholder='Enter Your Team Name'
+                            placeholder='Enter Your Name'
                             type='text'
                             required
                             value={teamName}
@@ -61,11 +61,11 @@ const Authentication = () => {
                     </div>
 
                     <div className='flex flex-col mt-6'>
-                        <label className='font-medium text-xl'>Gmail Id</label>
+                        <label className='font-medium text-xl'>College Name</label>
                         <input
                             className='mt-2 pt-2 flex justify-center items-center outline-none border-b-2'
-                            placeholder='Enter Your Team Name'
-                            type='email'
+                            placeholder='Enter Your College Name'
+                            type='text'
                             required
                             value={emailId}
                             onChange={(e) => setEmailId(e.target.value)}
@@ -76,7 +76,7 @@ const Authentication = () => {
                         <label className='font-medium text-xl'>Phone Number</label>
                         <input
                             className='mt-2 pt-2 flex justify-center items-center outline-none border-b-2'
-                            placeholder='Enter Your Team Name'
+                            placeholder='Enter Your Phone Number'
                             type='text'
                             required
                             value={phoneNumber}
