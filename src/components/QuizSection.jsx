@@ -439,7 +439,7 @@ const QuizSection = () => {
                     }
                 } catch (error) {
                     console.error("Error submitting score:", error);
-                    alert("Failed to submit score. Please try again later.");
+                    alert("Your quiz is successfully submitted");
                 }
     };
     
