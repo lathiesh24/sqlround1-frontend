@@ -414,34 +414,33 @@ const QuizSection = () => {
 
     const  teamName  = localStorage.getItem('teamName');
 
-    const submitScore = async () => {
-        if (!teamName) {
-            alert("Please provide a team name and complete the quiz.");
-            return;
+   const submitScore = async () => {
+    if (!teamName) {
+        alert("Please provide a team name and complete the quiz.");
+        return;
+    }
+
+    const confirmSubmit = window.confirm("Are you sure you want to submit your score?");
+
+    if (confirmSubmit) {
+        try {
+            const submitResponse = await axios.post('https://sqlr1-backend.onrender.com/api/teams/submit-score', {
+                teamName: teamName,
+                score: score,
+            });
+
+            if (submitResponse.status === 200) {
+                navigate('/thankyou'); // Navigate to the next page
+            } else {
+                alert("Failed to submit score. Please try again later.");
+            }
+        } catch (error) {
+            console.error("Error submitting score:", error);
+            alert("Your quiz is successfully submitted");
         }
-    
-        const confirmSubmit = window.confirm("Are you sure you want to submit your score?");
-    
-        if (!confirmSubmit) {
-            return; 
-        }
-        
-                try {
-                    const submitResponse = await axios.post('https://sqlr1-backend.onrender.com/api/teams/submit-score', {
-                        teamName: teamName, 
-                        score: score,
-                    });
-    
-                    if (submitResponse.status === 200) {
-                        navigate('/thankyou');
-                    } else {
-                        alert("Failed to submit score. Please try again later.");
-                    }
-                } catch (error) {
-                    console.error("Error submitting score:", error);
-                    alert("Your quiz is successfully submitted");
-                }
-    };
+    }
+};
+
     
     
         
