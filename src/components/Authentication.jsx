@@ -15,7 +15,7 @@ const Authentication = () => {
         if (teamName.trim() !== "") {
             const data = {
                 teamName,
-                email: emailId,
+                collegeName: emailId,
                 phoneNumber,
             };
 
