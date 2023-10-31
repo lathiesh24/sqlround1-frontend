@@ -430,13 +430,12 @@ const QuizSection = () => {
             });
 
             if (submitResponse.status === 200) {
-                navigate('/thankyou'); // Navigate to the next page
-            } else {
-                alert("Failed to submit score. Please try again later.");
+                 navigate('/thankyou'); 
+                 alert("Your quiz is successfully submitted");
             }
         } catch (error) {
             console.error("Error submitting score:", error);
-            alert("Your quiz is successfully submitted");
+            alert("Failed submitting score:", error);
         }
     }
 };
